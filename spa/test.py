@@ -1,9 +1,9 @@
 import datetime
 from multiprocessing import Process
 
-from fomc.feature_extraction import ChiSquare
-from fomc.tools import get_accuracy
-from fomc.tools import Write2File
+from spa.feature_extraction import ChiSquare
+from spa.tools import get_accuracy
+from spa.tools import Write2File
 
 
 class Test:
@@ -35,7 +35,7 @@ class Test:
         self.precisions = precisions
 
     def test_knn(self):
-        from fomc.classifiers import KNNClassifier
+        from spa.classifiers import KNNClassifier
 
         if type(self.k) == int:
             k = "%s" % self.k
@@ -71,7 +71,7 @@ class Test:
         print("Train num = %s" % self.train_num)
         print("Test num = %s" % self.test_num)
 
-        from fomc.classifiers import BayesClassifier
+        from spa.classifiers import BayesClassifier
         bayes = BayesClassifier(self.train_data, self.train_labels, self.best_words)
 
         classify_labels = []
@@ -103,7 +103,7 @@ class Test:
         print("Test num = %s" % self.test_num)
         print("maxiter = %s" % self.max_iter)
 
-        from fomc.classifiers import MaxEntClassifier
+        from spa.classifiers import MaxEntClassifier
 
         m = MaxEntClassifier(self.max_iter)
         iter_results = m.test(self.train_data, self.train_labels, self.best_words, self.test_data)
@@ -133,7 +133,7 @@ class Test:
         print("Test num = %s" % self.test_num)
         print("maxiter = %s" % self.max_iter)
 
-        from fomc.classifiers import MaxEntClassifier
+        from spa.classifiers import MaxEntClassifier
 
         m = MaxEntClassifier(self.max_iter)
         m.train(self.train_data, self.train_labels, self.best_words)
@@ -160,7 +160,7 @@ class Test:
         print("Test num = %s" % self.test_num)
         print("C = %s" % self.C)
 
-        from fomc.classifiers import SVMClassifier
+        from spa.classifiers import SVMClassifier
         svm = SVMClassifier(self.train_data, self.train_labels, self.best_words, self.C)
 
         classify_labels = []
@@ -189,7 +189,7 @@ class Test:
         print("C = %s" % self.C)
         print("maxiter = %s" % self.max_iter)
 
-        from fomc.classifiers import MultipleClassifiers as Classifier
+        from spa.classifiers import MultipleClassifiers as Classifier
 
         mc = Classifier(self.train_data, self.train_labels, self.best_words, self.max_iter, self.C)
 
@@ -224,7 +224,7 @@ class Test:
         print("C = %s" % self.C)
         print("maxiter = %s" % self.max_iter)
 
-        from fomc.classifiers import MultipleClassifiers2 as Classifier
+        from spa.classifiers import MultipleClassifiers2 as Classifier
 
         mc = Classifier(self.train_data, self.train_labels, self.best_words, self.max_iter, self.C, self.precisions)
 
@@ -256,7 +256,7 @@ class Test:
         print("maxiter = %s" % self.max_iter)
         print("k = %s" % self.k)
 
-        from fomc.classifiers import MultipleClassifiers3 as Classifier
+        from spa.classifiers import MultipleClassifiers3 as Classifier
 
         mc = Classifier(self.train_data, self.train_labels, self.best_words, self.max_iter, self.C, self.k,
                         self.precisions)
@@ -295,7 +295,7 @@ class Test:
         print("maxiter = %s" % self.max_iter)
         print("k = %s" % self.k)
 
-        from fomc.classifiers import MultipleClassifiers3 as Classifier
+        from spa.classifiers import MultipleClassifiers3 as Classifier
 
         mc = Classifier(self.train_data, self.train_labels, self.best_words, self.max_iter, self.C, self.k,
                         self.precisions)
@@ -349,7 +349,7 @@ class Test:
 
 
 def test_movie():
-    from fomc.corpus import MovieCorpus as Corpus
+    from spa.corpus import MovieCorpus as Corpus
 
     type_ = "movie"
     train_num = 500
@@ -370,7 +370,7 @@ def test_movie():
 
 
 def test_movie2():
-    from fomc.corpus import Movie2Corpus
+    from spa.corpus import Movie2Corpus
 
     type_ = "movie2"
     train_num = 700
@@ -401,7 +401,7 @@ def test_movie2():
 
 
 def test_waimai():
-    from fomc.corpus import WaimaiCorpus
+    from spa.corpus import WaimaiCorpus
 
     type_ = "waimai"
     train_num = 3000
@@ -430,7 +430,7 @@ def test_waimai():
 
 
 def test_waimai2():
-    from fomc.corpus import Waimai2Corpus
+    from spa.corpus import Waimai2Corpus
 
     type_ = "waimai2"
     train_num = 3000
@@ -448,7 +448,7 @@ def test_waimai2():
 
 
 def test_hotel():
-    from fomc.corpus import HotelCorpus
+    from spa.corpus import HotelCorpus
 
     type_ = "hotel"
     train_num = 2200
@@ -484,7 +484,7 @@ def test_dict():
     print("DictClassifier")
     print("---" * 45)
 
-    from fomc.classifiers import DictClassifier
+    from spa.classifiers import DictClassifier
 
     ds = DictClassifier()
 
