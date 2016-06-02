@@ -1,6 +1,5 @@
 import re
 from collections import defaultdict
-from threading import Thread
 
 import jieba
 import numpy as np

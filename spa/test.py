@@ -178,175 +178,6 @@ class Test:
 
         self.write(filepath, classify_labels, 2)
 
-    def test_multiple_classifiers(self):
-        """
-        并联+投票决策
-        """
-        print("Combination of Multiple Classifiers 并联+投票决策")
-        print("---" * 45)
-        print("Train num = %s" % self.train_num)
-        print("Test num = %s" % self.test_num)
-        print("C = %s" % self.C)
-        print("maxiter = %s" % self.max_iter)
-
-        from spa.classifiers import MultipleClassifiers as Classifier
-
-        mc = Classifier(self.train_data, self.train_labels, self.best_words, self.max_iter, self.C)
-
-        print("MultipleClassifiers is testing ...")
-        classify_labels = []
-        for data in self.test_data:
-            classify_labels.append(mc.classify(data))
-        print("MultipleClassifiers tests over.")
-
-        filepath = "f_runout/Multiple-%s-train-%d-test-%d-f-%d-iter-%d-C-%d---%s.xls" % \
-                   (self.type,
-                    self.train_num, self.test_num,
-                    self.feature_num,
-                    self.max_iter, self.C,
-                    datetime.datetime.now().strftime(
-                        "%Y-%m-%d-%H-%M-%S"))
-
-        self.write(filepath, classify_labels)
-
-    def test_multiple_classifiers2(self):
-        """
-        并联+置信平均
-        """
-        if not self.single_classifiers_got:
-            print("Please run single classifiers firstly.")
-            return
-
-        print("Combination of Multiple Classifiers2 并联+置信平均")
-        print("---" * 45)
-        print("Train num = %s" % self.train_num)
-        print("Test num = %s" % self.test_num)
-        print("C = %s" % self.C)
-        print("maxiter = %s" % self.max_iter)
-
-        from spa.classifiers import MultipleClassifiers2 as Classifier
-
-        mc = Classifier(self.train_data, self.train_labels, self.best_words, self.max_iter, self.C, self.precisions)
-
-        print("MultipleClassifiers2 is testing ...")
-        classify_labels = []
-        for data in self.test_data:
-            classify_labels.append(mc.classify(data))
-        print("MultipleClassifiers2 tests over.")
-
-        filepath = "f_runout/Multiple2-%s-train-%d-test-%d-f-%d-iter-%d-C-%d-%s.xls" % \
-                   (self.type,
-                    self.train_num, self.test_num,
-                    self.feature_num, self.max_iter,
-                    self.C,
-                    datetime.datetime.now().strftime(
-                        "%Y-%m-%d-%H-%M-%S"))
-
-        self.write(filepath, classify_labels)
-
-    def test_multiple_classifiers3(self):
-        """
-        串并联+投票决策
-        """
-        print("Combination of Multiple Classifiers3 串并联+投票决策")
-        print("---" * 45)
-        print("Train num = %s" % self.train_num)
-        print("Test num = %s" % self.test_num)
-        print("C = %s" % self.C)
-        print("maxiter = %s" % self.max_iter)
-        print("k = %s" % self.k)
-
-        from spa.classifiers import MultipleClassifiers3 as Classifier
-
-        mc = Classifier(self.train_data, self.train_labels, self.best_words, self.max_iter, self.C, self.k,
-                        self.precisions)
-
-        print("MultipleClassifiers3 is testing ...")
-        classify_labels = []
-        for data in self.test_data:
-            classify_labels.append(mc.classify(data))
-        print("MultipleClassifiers3 tests over.")
-
-        filepath = "f_runout/Multiple3-%s-train-%d-test-%d-f-%d-iter-%d-C-%d-k-%d-%s.xls" % \
-                   (self.type,
-                    self.train_num,
-                    self.test_num,
-                    self.feature_num,
-                    self.max_iter, self.C,
-                    self.k,
-                    datetime.datetime.now().strftime(
-                        "%Y-%m-%d-%H-%M-%S"))
-
-        self.write(filepath, classify_labels)
-
-    def test_multiple_classifiers4(self):
-        """
-        串并联：置信平均
-        """
-        if not self.single_classifiers_got:
-            print("Please run single classifiers firstly.")
-            return
-
-        print("Combination of Multiple Classifiers4 串并联+置信平均")
-        print("---" * 45)
-        print("Train num = %s" % self.train_num)
-        print("Test num = %s" % self.test_num)
-        print("C = %s" % self.C)
-        print("maxiter = %s" % self.max_iter)
-        print("k = %s" % self.k)
-
-        from spa.classifiers import MultipleClassifiers3 as Classifier
-
-        mc = Classifier(self.train_data, self.train_labels, self.best_words, self.max_iter, self.C, self.k,
-                        self.precisions)
-
-        print("MultipleClassifiers4 is testing ...")
-        classify_labels = []
-        for data in self.test_data:
-            classify_labels.append(mc.classify(data))
-        print("MultipleClassifiers4 tests over.")
-
-        filepath = "f_runout/Multiple4-%s-train-%d-test-%d-f-%d-iter-%d-C-%d-k-%d-%s.xls" % \
-                   (self.type,
-                    self.train_num,
-                    self.test_num,
-                    self.feature_num,
-                    self.max_iter, self.C,
-                    self.k,
-                    datetime.datetime.now().strftime(
-                        "%Y-%m-%d-%H-%M-%S"))
-
-        self.write(filepath, classify_labels)
-
-    def single_multiprocess(self):
-        p1 = Process(target=self.test_knn)
-        p2 = Process(target=self.test_bayes)
-        p3 = Process(target=self.test_maxent)
-        p4 = Process(target=self.test_svm)
-
-        p1.start()
-        p2.start()
-        p3.start()
-        p4.start()
-
-        p1.join()
-        p2.join()
-        p3.join()
-        p4.join()
-
-        self.single_classifiers_got = True
-
-    def multiple_multiprocess(self):
-        p5 = Process(target=self.test_multiple_classifiers)
-        p6 = Process(target=self.test_multiple_classifiers2)
-        p7 = Process(target=self.test_multiple_classifiers3)
-        p8 = Process(target=self.test_multiple_classifiers4)
-
-        p5.start()
-        p6.start()
-        p7.start()
-        p8.start()
-
 
 def test_movie():
     from spa.corpus import MovieCorpus as Corpus
@@ -391,13 +222,6 @@ def test_movie2():
     # test.test_maxent()
     # test.test_maxent_iteration()
     # test.test_svm()
-    # test.test_multiple_classifiers()
-    # test.test_multiple_classifiers2()
-    # test.test_multiple_classifiers3()
-    # test.test_multiple_classifiers4()
-
-    # test.single_multiprocess()
-    # test.multiple_multiprocess()
 
 
 def test_waimai():
@@ -467,10 +291,10 @@ def test_hotel():
     # test.single_multiprocess()
     # test.multiple_multiprocess()
 
-    # test.test_bayes()
+    test.test_bayes()
     # test.test_maxent()
     # test.test_maxent_iteration()
-    test.test_svm()
+    # test.test_svm()
     # test.test_multiple_classifiers()
     # test.test_multiple_classifiers2()
     # test.test_multiple_classifiers3()
@@ -489,28 +313,29 @@ def test_dict():
     ds = DictClassifier()
 
     # 对一个单句进行情感分析
-    # a_sentence = "剁椒鸡蛋好咸,土豆丝很好吃"
-    # ds.sentiment_analyse_a_sentence(a_sentence)
+    a_sentence = "剁椒鸡蛋好咸,土豆丝很好吃"
+    result = ds.analyse_sentence(a_sentence)
+    print(result)
 
     # 对一个文件内语料进行情感分析
-    corpus_filepath = "D:/My Data/NLP/SA/waimai/positive_corpus_v1.txt"
-    runout_filepath_ = "f_runout/f_dict-positive_test.txt"
-    pos_results = ds.analysis_file(corpus_filepath, runout_filepath_, start=3000, end=4000-1)
-
-    corpus_filepath = "D:/My Data/NLP/SA/waimai/negative_corpus_v1.txt"
-    runout_filepath_ = "f_runout/f_dict-negative_test.txt"
-    neg_results = ds.analysis_file(corpus_filepath, runout_filepath_, start=3000, end=4000-1)
-
-    origin_labels = [1] * 1000 + [0] * 1000
-    classify_labels = pos_results + neg_results
-
-    print(len(classify_labels))
-
-    filepath = "f_runout/Dict-waimai-%s.xls" % (
-        datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
-    results = get_accuracy(origin_labels, classify_labels, [1000, 1000, 0])
-
-    Write2File.write_contents(filepath, results)
+    # corpus_filepath = "D:/My Data/NLP/SA/waimai/positive_corpus_v1.txt"
+    # runout_filepath_ = "f_runout/f_dict-positive_test.txt"
+    # pos_results = ds.analysis_file(corpus_filepath, runout_filepath_, start=3000, end=4000-1)
+    #
+    # corpus_filepath = "D:/My Data/NLP/SA/waimai/negative_corpus_v1.txt"
+    # runout_filepath_ = "f_runout/f_dict-negative_test.txt"
+    # neg_results = ds.analysis_file(corpus_filepath, runout_filepath_, start=3000, end=4000-1)
+    #
+    # origin_labels = [1] * 1000 + [0] * 1000
+    # classify_labels = pos_results + neg_results
+    #
+    # print(len(classify_labels))
+    #
+    # filepath = "f_runout/Dict-waimai-%s.xls" % (
+    #     datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+    # results = get_accuracy(origin_labels, classify_labels, [1000, 1000, 0])
+    #
+    # Write2File.write_contents(filepath, results)
 
 
 if __name__ == "__main__":
@@ -519,7 +344,7 @@ if __name__ == "__main__":
     # test_movie2()
     # test_waimai()
     # test_waimai2()
-    # test_hotel()
-    test_dict()
+    test_hotel()
+    # test_dict()
 
 
