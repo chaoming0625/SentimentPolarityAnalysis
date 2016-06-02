@@ -24,7 +24,7 @@ X^2值后几名的词语。能看出这些词的分类作用不是很大。
 
 - 对应文件：classifier.py  DictClassifier
 
-使用1：analyse_sentence(sentence, runout_filepath=None, print_show=False)
+### 使用1：analyse_sentence(sentence, runout_filepath=None, print_show=False)
 
 对单个句子进行情感极性分析
 
@@ -41,7 +41,7 @@ X^2值后几名的词语。能看出这些词的分类作用不是很大。
     result = ds.analyse_sentence(a_sentence)
     print(result)
 
-使用2：analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, start=0, end=-1)
+### 使用2：analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, start=0, end=-1)
 
 - filepath_in，待分析的句子文件
 
@@ -146,7 +146,7 @@ X^2值后几名的词语。能看出这些词的分类作用不是很大。
 ## 5、基于最大熵的情感极性分析 
 —— sentiment analysis based on maximum entropy
 
-使用1：得到每次迭代的准确率的变化，如图
+### 使用1：得到每次迭代的准确率的变化，如图
 
 ![maxent_iteration](files/pic/maxent_iteration.PNG)
 
@@ -180,7 +180,7 @@ X^2值后几名的词语。能看出这些词的分类作用不是很大。
 
         Write2File.write_contents(filepath, results)
 
-使用2：单个句子的情感极性划分
+### 使用2：单个句子的情感极性划分
 
     def test_maxent(self):
         print("MaxEntClassifier")
