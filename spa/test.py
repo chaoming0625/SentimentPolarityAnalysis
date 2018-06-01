@@ -314,9 +314,9 @@ def test_dict():
 
     # 对一个单句进行情感分析
     # a_sentence = "剁椒鸡蛋好咸,土豆丝很好吃"    # result值: 修改前(1)/修改后(1)
-    # a_sentence = "要是米饭在多点儿就好了"    # result值: 修改前(1)/修改后(0)
-    a_sentence = "要是米饭在多点儿就更好了"    # result值: 修改前(0)/修改后(0)
-    # a_sentence = "不太好吃，相当难吃，要是米饭在多点儿就好了"    # result值: 修改前(1)/修改后(0)
+    # a_sentence = "要是米饭再多点儿就好了"    # result值: 修改前(1)/修改后(0)
+    a_sentence = "要是米饭再多点儿就更好了"    # result值: 修改前(0)/修改后(0)
+    # a_sentence = "不太好吃，相当难吃，要是米饭再多点儿就好了"    # result值: 修改前(1)/修改后(0)
     result = ds.analyse_sentence(a_sentence)
     print(result)
 
