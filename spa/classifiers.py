@@ -150,7 +150,8 @@ class DictClassifier:
 
     @staticmethod
     def __is_clause_pattern2(the_clause):
-        re_pattern = re.compile(r".*(如果|要是|希望).+就[\u4e00-\u9fa5]+(好|完美)了")
+        # re_pattern = re.compile(r".*(如果|要是|希望).+就[\u4e00-\u9fa5]+(好|完美)了")
+        re_pattern = re.compile(r".*(如果|要是|希望).+就[\u4e00-\u9fa5]*(好|完美)了")
         match = re_pattern.match(the_clause)
         if match is not None:
             pattern = {"key": "如果…就好了", "value": 1.0}
