@@ -831,10 +831,17 @@ class SVMClassifier:
 
     def words2vector(self, all_data):
         vectors = []
+
+        best_words_index = {}
+        for i, word in enumerate(self.best_words):
+            best_words_index[word] = i
+
         for data in all_data:
-            vector = []
-            for feature in self.best_words:
-                vector.append(data.count(feature))
+            vector = [0 for x in range(len(self.best_words))]
+            for word in data:
+                i = best_words_index.get(word)
+                if i is not None:
+                    vector[i] = vector[i] + 1
             vectors.append(vector)
 
         vectors = np.array(vectors)
